@@ -1,0 +1,6 @@
+# VULNERABILITY 3: This version of PyYAML has a known Critical CVE (CVE-2020-14343)
+# Your SCA tool (Snyk/Trivy) should scream about this later.
+flask==2.2.2
+werkzeug==2.2.2
+# VULNERABILITY 3: PyYAML critical CVE
+PyYAML==5.3

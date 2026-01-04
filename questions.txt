@@ -1,0 +1,5 @@
+- do you need a virtual python environment for the
+same reaon you use docker? so that packages for a project
+can be different versions than from the global one installed
+without issue?
+
