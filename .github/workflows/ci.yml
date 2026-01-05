@@ -1,6 +1,5 @@
 name: Gatekeeper DevSecOps Pipeline
 
-# Trigger the pipeline whenever someone pushes to the main branch
 on:
     push:
         branches: ['main']
@@ -10,14 +9,21 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            # Step 1: Check out the code from the repo
+            # Step 1: Checkout Code
             - name: Checkout Code
               uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0 # Important: Gitleaks needs the full history to find secrets
 
-            # Step 2: Build the Docker Image (just like you did locally)
+            # Step 2: Secret Scanning (The New Gatekeeper)
+            - name: Run Gitleaks
+              uses: gitleaks/gitleaks-action@v2
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            # Step 3: Build Docker Image (Only runs if Step 2 passes)
             - name: Build Docker Image
               run: docker build -t gatekeeper-app .
 
-            # Step 3: Verify it built (A simple "Smoke Test")
             - name: Verify Build
-              run: echo "Docker image built successfully! Proceeding to security scans..."
+              run: echo "Build successful!"
