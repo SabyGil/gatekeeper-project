@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 # VULNERABILITY 1: Hardcoded AWS Secret (SAST/Secret Scanners should catch this)
 # In a real app, this should be an environment variable.
-AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE"
+AWS_ACCESS_KEY_ID = "AKIAIMYOURFATHER1234"
 AWS_SECRET_ACCESS_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 
 @app.route('/')
