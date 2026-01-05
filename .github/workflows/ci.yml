@@ -1,0 +1,23 @@
+name: Gatekeeper DevSecOps Pipeline
+
+# Trigger the pipeline whenever someone pushes to the main branch
+on:
+    push:
+        branches: ['main']
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+
+        steps:
+            # Step 1: Check out the code from the repo
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            # Step 2: Build the Docker Image (just like you did locally)
+            - name: Build Docker Image
+              run: docker build -t gatekeeper-app .
+
+            # Step 3: Verify it built (A simple "Smoke Test")
+            - name: Verify Build
+              run: echo "Docker image built successfully! Proceeding to security scans..."
