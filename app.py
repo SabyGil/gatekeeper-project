@@ -1,11 +1,14 @@
+import os
 from flask import Flask, request
 
 app = Flask(__name__)
 
 # VULNERABILITY 1: Hardcoded AWS Secret (SAST/Secret Scanners should catch this)
 # In a real app, this should be an environment variable.
-AWS_ACCESS_KEY_ID = "AKIAIMYOURFATHER1234"
-AWS_SECRET_ACCESS_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+# THE FIX: Read from Environment Variable
+# If the variable is missing, it returns None (safe), not a hardcoded secret.
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
 @app.route('/')
 def home():
